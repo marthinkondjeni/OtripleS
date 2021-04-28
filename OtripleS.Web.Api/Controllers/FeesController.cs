@@ -56,26 +56,6 @@ namespace OtripleS.Web.Api.Controllers
             }
         }
 
-        [HttpGet]
-        public ActionResult<IQueryable<Fee>> GetAllFees()
-        {
-            try
-            {
-                IQueryable storageFee =
-                    this.feeService.RetrieveAllFees();
-
-                return Ok(storageFee);
-            }
-            catch (FeeDependencyException feeDependencyException)
-            {
-                return Problem(feeDependencyException.Message);
-            }
-            catch (FeeServiceException feeServiceException)
-            {
-                return Problem(feeServiceException.Message);
-            }
-        }
-
         [HttpGet("{feeId}")]
         public async ValueTask<ActionResult<Fee>> GetFeeAsync(Guid feeId)
         {

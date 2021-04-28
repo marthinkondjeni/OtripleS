@@ -17,7 +17,6 @@ namespace OtripleS.Web.Api.Services.Fees
     public partial class FeeService
     {
         private delegate ValueTask<Fee> ReturningFeeFunction();
-        private delegate IQueryable<Fee> ReturningQueryableFeeFunction();
 
         private async ValueTask<Fee> TryCatch(ReturningFeeFunction returningFeeFunction)
         {
@@ -57,22 +56,6 @@ namespace OtripleS.Web.Api.Services.Fees
             catch (DbUpdateException dbUpdateException)
             {
                 throw CreateAndLogDependencyException(dbUpdateException);
-            }
-            catch (Exception exception)
-            {
-                throw CreateAndLogServiceException(exception);
-            }
-        }
-
-        private IQueryable<Fee> TryCatch(ReturningQueryableFeeFunction returningQueryableFeeFunction)
-        {
-            try
-            {
-                return returningQueryableFeeFunction();
-            }
-            catch (SqlException sqlException)
-            {
-                throw CreateAndLogCriticalDependencyException(sqlException);
             }
             catch (Exception exception)
             {
