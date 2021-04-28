@@ -39,7 +39,7 @@ namespace OtripleS.Web.Api.Services.Fees
 
         public IQueryable<Fee> RetrieveAllFees()
         {
-            throw new NotImplementedException();
+            return this.storageBroker.SelectAllFees();
         }
 
         public ValueTask<Fee> RetrieveFeeByIdAsync(Guid feeId) =>
