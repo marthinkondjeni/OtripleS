@@ -57,6 +57,34 @@ namespace OtripleS.Web.Api.Tests.Unit.Services.Fees
         }
 
         [Fact]
+        public void ShouldRetrieveAllFees()
+        {
+            // given
+            IQueryable<Fee> randomFees = CreateRandomFees();
+            IQueryable<Fee> storageFees = randomFees;
+            IQueryable<Fee> expectedFees = storageFees;
+
+            this.storageBrokerMock.Setup(broker =>
+                broker.SelectAllFees())
+                    .Returns(storageFees);
+
+            // when
+            IQueryable<Fee> actualFees =
+                this.feeService.RetrieveAllFees();
+
+            // then
+            actualFees.Should().BeEquivalentTo(expectedFees);
+
+            this.storageBrokerMock.Verify(broker =>
+                broker.SelectAllFees(),
+                    Times.Once);
+
+            this.storageBrokerMock.VerifyNoOtherCalls();
+            this.loggingBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
         public async Task ShouldRetrieveFeeByIdAsync()
         {
             // given

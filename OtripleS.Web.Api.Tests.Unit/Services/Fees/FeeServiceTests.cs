@@ -89,6 +89,13 @@ namespace OtripleS.Web.Api.Tests.Unit.Services.Fees
         private static IQueryable<Fee> CreateRandomFees(DateTimeOffset dates) =>
             CreateFeeFiller(dates).Create(GetRandomNumber()).AsQueryable();
 
+        private static IQueryable<Fee> CreateRandomFees()
+        {
+            return CreateFeeFiller(dates: GetRandomDateTime())
+                .Create(count: GetRandomNumber())
+                    .AsQueryable();
+        }
+
         private static Filler<Fee> CreateFeeFiller(DateTimeOffset dates)
         {
             var filler = new Filler<Fee>();

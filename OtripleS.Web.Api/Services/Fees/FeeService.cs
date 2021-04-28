@@ -37,6 +37,11 @@ namespace OtripleS.Web.Api.Services.Fees
             return await this.storageBroker.InsertFeeAsync(fee);
         });
 
+        public IQueryable<Fee> RetrieveAllFees()
+        {
+            throw new NotImplementedException();
+        }
+
         public ValueTask<Fee> RetrieveFeeByIdAsync(Guid feeId) =>
         TryCatch(async () =>
         {
